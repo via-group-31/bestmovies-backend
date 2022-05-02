@@ -1,0 +1,43 @@
+openapi: 3.0.0
+
+info:
+  version: 0.0.1
+  title: Best Movies Service
+  description: The Best Movies Service
+
+tags:
+  - name: "Best Movies"
+
+paths:
+
+  /users:
+    get:
+      summary: This is summary
+      tags:
+        - "Users"
+      description: This is a description
+      operationId: GetAllUsers
+      responses:
+        "200":
+          description: This means it is ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+components:
+
+  schemas:
+
+    User:
+      description: This is a user model
+      type: object
+      properties:
+        name:
+          description: Name of the user
+          type: string
+        password:
+          description: Password of the user
+          type: string
