@@ -228,29 +228,6 @@ components:
         year:
           type: integer
 
-    Human:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        birth:
-          type: integer
-        movieID:
-          type: integer
-      oneOf:
-        - $ref: '#/components/schemas/Director'
-        - $ref: '#/components/schemas/Star'
-      discriminator:
-        propertyName: objectType
-
-    Director:
-      type: object
-
-    Star:
-      type: object
-
     Review:
       type: object
       properties:
@@ -265,8 +242,49 @@ components:
       type: object
       properties:
         rating:
-          type: float
+          type: number
         votes:
           type: integer
         movieID:
           type: integer
+
+    Pet:
+      type: object
+      required:
+        - petType
+      properties:
+        petType:
+          type: string
+      discriminator:
+        propertyName: petType
+        mapping:
+          cat: Cat
+    Cat:
+      allOf:
+        - $ref: '#/components/schemas/Pet'
+        - type: object
+            # all other properties specific to a `Cat`
+      properties:
+        name:
+          type: string
+
+    Human:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        birth:
+          type: integer
+        movieID:
+          type: integer
+      oneOf:
+        - $ref: '#/components/schemas/Star'
+        - $ref: '#/components/schemas/Director'
+
+    Director:
+      type: object
+
+    Star:
+      type: object
