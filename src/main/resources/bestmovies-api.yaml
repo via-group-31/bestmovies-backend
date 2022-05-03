@@ -217,14 +217,6 @@ components:
           type: string
         username:
           type: string
-        movieList:
-          type: array
-          items:
-            $ref: '#/components/schemas/Movie'
-        reviews:
-          type: array
-          items:
-            $ref: '#/components/schemas/Review'
 
     Movie:
       type: object
@@ -235,22 +227,6 @@ components:
           type: string
         year:
           type: integer
-        reviews:
-          type: array
-          items:
-            $ref: '#/components/schemas/Review'
-        ratings:
-          type: array
-          items:
-            $ref: '#/components/schemas/Rating'
-        stars:
-          type: array
-          items:
-            $ref: '#/components/schemas/Star'
-        directors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Director'
 
     Human:
       type: object
@@ -260,6 +236,8 @@ components:
         name:
           type: string
         birth:
+          type: integer
+        movieID:
           type: integer
       oneOf:
         - $ref: '#/components/schemas/Director'
@@ -278,11 +256,17 @@ components:
       properties:
         reviewContent:
           type: string
+        userID:
+          type: integer
+        movieID:
+          type: integer
 
     Rating:
       type: object
       properties:
         rating:
-          type: integer
+          type: float
         votes:
+          type: integer
+        movieID:
           type: integer
