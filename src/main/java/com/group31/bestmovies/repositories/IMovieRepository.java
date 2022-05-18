@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface IMovieRepository extends JpaRepository<Movie, Integer> {
 
     @Query(value = "SELECT * FROM Movies.dbo.movies WHERE id = :movieID", nativeQuery = true)
-    Movie getMovie(@Param("movieID") int movieID);
+    Movie getMovie(@Param("movieID") int  movieID);
 }
