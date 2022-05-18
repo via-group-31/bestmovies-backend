@@ -21,6 +21,8 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "userid")
+    // Hide these fields, as it is public and should not be visible by other users
+    @JsonIgnoreProperties({"userPassword", "movieList", "userRoles"})
     private UserModel userModel;
 
     @ManyToOne
