@@ -1,6 +1,6 @@
 package com.group31.bestmovies.Webservice.Api;
 
-import com.group31.bestmovies.Model.MovieModel;
+import com.group31.bestmovies.Model.Movie;
 import com.group31.bestmovies.Webservice.Service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +19,12 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping
-    public ResponseEntity<List<MovieModel>> getMovieByName(@RequestParam("movieName") String movieName){
+    public ResponseEntity<List<Movie>> getMovieByName(@RequestParam("movieName") String movieName){
         return ResponseEntity.ok().body(movieService.getMoviesByName(movieName));
     }
 
     @GetMapping("/byid")
-    public ResponseEntity<MovieModel> getMovieByName(@RequestParam("movieId") long movieId){
+    public ResponseEntity<Movie> getMovieByName(@RequestParam("movieId") long movieId){
         return ResponseEntity.ok().body(movieService.getMovieById(movieId));
     }
 }

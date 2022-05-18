@@ -1,6 +1,6 @@
 package com.group31.bestmovies.Webservice.Api;
 
-import com.group31.bestmovies.Model.PersonModel;
+import com.group31.bestmovies.Model.Person;
 import com.group31.bestmovies.Webservice.Service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +18,12 @@ public class PersonController {
 
     private final PersonService personService;
 
-    public ResponseEntity<List<PersonModel>> getPeopleByName(@RequestParam("personName") String personName) {
+    public ResponseEntity<List<Person>> getPeopleByName(@RequestParam("personName") String personName) {
         return ResponseEntity.ok().body(personService.getPersonsByName(personName));
     }
 
     @GetMapping("/pls")
-    public ResponseEntity<PersonModel> getPersonById(@RequestParam("personId") long personId){
+    public ResponseEntity<Person> getPersonById(@RequestParam("personId") long personId){
         return ResponseEntity.ok().body(personService.getPersonById(personId));
     }
 }

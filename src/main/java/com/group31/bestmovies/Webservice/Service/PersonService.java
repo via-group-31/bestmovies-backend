@@ -1,6 +1,6 @@
 package com.group31.bestmovies.Webservice.Service;
 
-import com.group31.bestmovies.Model.PersonModel;
+import com.group31.bestmovies.Model.Person;
 import com.group31.bestmovies.Repository.IPersonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +17,12 @@ public class PersonService {
 
     private final IPersonRepository personRepository;
 
-    public List<PersonModel> getPersonsByName(String personName){
+    public List<Person> getPersonsByName(String personName){
         log.info("Getting person by name: {}", personName);
         return personRepository.findAllByPersonName(personName);
     }
 
-    public PersonModel getPersonById(long personId){
+    public Person getPersonById(long personId){
         return personRepository.getById(personId);
     }
 }

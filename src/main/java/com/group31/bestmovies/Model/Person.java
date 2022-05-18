@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "people", schema = "dbo")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class PersonModel {
+public class Person {
     @Id
     @Column(name = "id")
     private long personId;
@@ -26,9 +26,9 @@ public class PersonModel {
 
     @ManyToMany(mappedBy = "directors", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"stars", "directors", "hibernateLazyInitializer"})
-    private List<MovieModel> directorOf;
+    private List<Movie> directorOf;
 
     @ManyToMany(mappedBy = "stars", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"stars", "directors", "hibernateLazyInitializer"})
-    private List<MovieModel> actorOf;
+    private List<Movie> actorOf;
 }

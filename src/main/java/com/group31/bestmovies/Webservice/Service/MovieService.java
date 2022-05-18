@@ -1,7 +1,6 @@
 package com.group31.bestmovies.Webservice.Service;
 
-import com.group31.bestmovies.Model.MovieModel;
-import com.group31.bestmovies.Model.PersonModel;
+import com.group31.bestmovies.Model.Movie;
 import com.group31.bestmovies.Repository.IMovieRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +17,12 @@ public class MovieService {
 
     private final IMovieRepository movieRepository;
 
-    public List<MovieModel> getMoviesByName(String movieName){
+    public List<Movie> getMoviesByName(String movieName){
         log.info("Getting names by movie name: {}", movieName);
         return movieRepository.findAllByMovieName(movieName);
     }
 
-    public MovieModel getMovieById(long movieId){
+    public Movie getMovieById(long movieId){
         log.info("Getting movie by id: {}", movieId);
         return movieRepository.getById(movieId);
     }
