@@ -4,6 +4,7 @@ import com.group31.bestmovies.api.MovieApi;
 import com.group31.bestmovies.api.MoviesApi;
 import com.group31.bestmovies.api.UserApi;
 import com.group31.bestmovies.models.*;
+import com.group31.bestmovies.services.MovieService;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,11 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class MovieController implements MovieApi, MoviesApi {
+    private final MovieService movieService;
+
+    public MovieController(MovieService movieService) {
+        this.movieService = movieService;
+    }
 
     @Override
     public ResponseEntity<Void> addMovieToMyList(Movie body) {
@@ -25,7 +31,7 @@ public class MovieController implements MovieApi, MoviesApi {
 
     @Override
     public ResponseEntity<Movie> getMovie(String movieID) {
-        return null;
+        return new ResponseEntity<>(movieService.getMovie(Integer.parseInt(movieID)), HttpStatus.OK);
     }
 
     @Override
@@ -36,7 +42,7 @@ public class MovieController implements MovieApi, MoviesApi {
         newMovie.setYear(1875);
         ArrayList arrayList = new ArrayList();
         arrayList.add(newMovie);
-        return new ResponseEntity<>(arrayList,HttpStatus.OK);
+        return new ResponseEntity<>(arrayList, HttpStatus.OK);
     }
 
     @Override

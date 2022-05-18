@@ -248,26 +248,6 @@ components:
         movieID:
           type: integer
 
-    Pet:
-      type: object
-      required:
-        - petType
-      properties:
-        petType:
-          type: string
-      discriminator:
-        propertyName: petType
-        mapping:
-          cat: Cat
-    Cat:
-      allOf:
-        - $ref: '#/components/schemas/Pet'
-        - type: object
-            # all other properties specific to a `Cat`
-      properties:
-        name:
-          type: string
-
     Human:
       type: object
       properties:
