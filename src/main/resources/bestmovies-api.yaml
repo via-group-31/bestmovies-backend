@@ -141,27 +141,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/Movie'
 
-  /movie:
-    get:
-      summary: This is summary
-      parameters:
-        - name: movieID
-          in: query
-          description: Email of the user
-          schema:
-            type: string
-      tags:
-        - "Movie"
-      description: Used to register the user
-      operationId: getMovie
-      responses:
-        "200":
-          description: This means it is ok
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Movie'
-
   /stars:
     get:
       summary: This is summary

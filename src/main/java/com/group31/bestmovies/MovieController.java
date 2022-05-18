@@ -1,30 +1,35 @@
-package com.group31.bestmovies.controllers;
+package com.group31.bestmovies;
 
 import com.group31.bestmovies.api.MovieApi;
 import com.group31.bestmovies.api.MoviesApi;
 import com.group31.bestmovies.models.*;
-import com.group31.bestmovies.services.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 public class MovieController implements MovieApi, MoviesApi {
     private final MovieService movieService;
+
+    public MovieController(MovieService movieService) {
+        this.movieService = movieService;
+    }
 
     @Override
     public ResponseEntity<Void> addMovieToMyList(Movie body) {
         return null;
     }
 
-    @Override
-    public ResponseEntity<Movie> getMovie(String movieID) {
+    @GetMapping("/movie")
+    @ResponseBody
+    public ResponseEntity<AnotherMovie> getMovie(@Param("movieID") String movieID) {
         return new ResponseEntity<>(movieService.getMovie(Integer.parseInt(movieID)), HttpStatus.OK);
     }
 

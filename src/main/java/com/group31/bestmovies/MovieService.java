@@ -1,22 +1,25 @@
-package com.group31.bestmovies.services;
+package com.group31.bestmovies;
 
 import com.group31.bestmovies.models.Movie;
-import com.group31.bestmovies.repositories.IMovieRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-@Service
-@RequiredArgsConstructor
-@Transactional
-@Slf4j
+@Component
 public class MovieService {
 
     private final IMovieRepository movieRepository;
 
-    public Movie getMovie(int movieID) {
+    @Autowired
+    public MovieService(IMovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
+
+    public AnotherMovie getMovie(int movieID) {
         return movieRepository.getMovie(movieID);
     }
 }
