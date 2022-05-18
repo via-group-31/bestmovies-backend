@@ -2,25 +2,20 @@ package com.group31.bestmovies.controllers;
 
 import com.group31.bestmovies.api.MovieApi;
 import com.group31.bestmovies.api.MoviesApi;
-import com.group31.bestmovies.api.UserApi;
 import com.group31.bestmovies.models.*;
 import com.group31.bestmovies.services.MovieService;
-import org.checkerframework.checker.units.qual.A;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class MovieController implements MovieApi, MoviesApi {
     private final MovieService movieService;
-
-    public MovieController(MovieService movieService) {
-        this.movieService = movieService;
-    }
 
     @Override
     public ResponseEntity<Void> addMovieToMyList(Movie body) {
