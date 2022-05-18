@@ -21,4 +21,10 @@ public class ReviewController {
     public ResponseEntity<Review> getReviewById(@RequestParam("reviewId") long reviewId){
         return ResponseEntity.ok().body(reviewService.getReviewById(reviewId));
     }
+
+    /* TODO:
+        POST for adding reviews
+        GET reviews by movieId
+        GET reviews by userId
+    * */
 }

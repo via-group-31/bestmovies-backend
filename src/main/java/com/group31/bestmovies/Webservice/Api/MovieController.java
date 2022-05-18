@@ -20,4 +20,8 @@ public class MovieController {
     public ResponseEntity<Movie> getMovieById(@RequestParam("movieId") long movieId){
         return ResponseEntity.ok().body(movieService.getMovieById(movieId));
     }
+
+    /* TODO:
+        GET movies by part of the movie name
+    * */
 }

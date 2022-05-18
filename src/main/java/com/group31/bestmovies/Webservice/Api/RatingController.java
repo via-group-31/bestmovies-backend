@@ -20,4 +20,8 @@ public class RatingController {
     public ResponseEntity<Rating> getRatingById(@RequestParam("ratingId") long ratingId){
         return ResponseEntity.ok().body(ratingService.getRatingById(ratingId));
     }
+
+    /* TODO:
+        GET ratings by movieId
+    * */
 }

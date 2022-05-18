@@ -20,4 +20,7 @@ public class PersonController {
     public ResponseEntity<Person> getPersonById(@RequestParam("personId") long personId){
         return ResponseEntity.ok().body(personService.getPersonById(personId));
     }
+    /* TODO:
+        GET people by part of the people name
+    * */
 }

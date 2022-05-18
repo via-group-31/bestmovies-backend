@@ -21,4 +21,10 @@ public class UserController {
         userService.registerUser(userModel);
         return ResponseEntity.ok().build();
     }
+
+    /* TODO:
+        POST movies to user (favorite)
+        DELETE movies to user (favorite)
+        GET favorites by userid
+    * */
 }
