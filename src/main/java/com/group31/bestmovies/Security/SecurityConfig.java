@@ -40,11 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/api/auth/login/**", "/api/auth/register/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/pokemon/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/pokemon/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/pokemon/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/pokemon/**").hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().antMatchers("/api/auth/users/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers("/api/review/**", "/api/rating/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

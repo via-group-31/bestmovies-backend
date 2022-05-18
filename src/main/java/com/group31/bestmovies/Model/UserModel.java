@@ -17,21 +17,23 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId")
+    @Column(name = "userid")
     private long userId;
 
     @Column(name = "email")
-    private String email;
+    private String userEmail;
 
-    @Column(name = "userPassword")
+    @Column(name = "userpassword")
     private String userPassword;
 
-    @Column(name = "username")
-    private String username;
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "movielist",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private Collection<Movie> movieList;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<UserRole> userRoleCollections = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<UserRole> userRoles = new ArrayList<>();
 }

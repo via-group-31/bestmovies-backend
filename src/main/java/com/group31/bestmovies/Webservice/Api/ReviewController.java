@@ -1,7 +1,8 @@
 package com.group31.bestmovies.Webservice.Api;
 
-import com.group31.bestmovies.Model.Movie;
-import com.group31.bestmovies.Webservice.Service.MovieService;
+import com.group31.bestmovies.Model.Rating;
+import com.group31.bestmovies.Model.Review;
+import com.group31.bestmovies.Webservice.Service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/movie")
-public class MovieController {
+@RequestMapping("/api/review")
+public class ReviewController {
 
-    private final MovieService movieService;
+    private final ReviewService reviewService;
 
     @GetMapping
-    public ResponseEntity<Movie> getMovieById(@RequestParam("movieId") long movieId){
-        return ResponseEntity.ok().body(movieService.getMovieById(movieId));
+    public ResponseEntity<Review> getReviewById(@RequestParam("reviewId") long reviewId){
+        return ResponseEntity.ok().body(reviewService.getReviewById(reviewId));
     }
 }

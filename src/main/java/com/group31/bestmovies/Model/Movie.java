@@ -1,7 +1,10 @@
 package com.group31.bestmovies.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,11 +25,7 @@ public class Movie {
     private String movieName;
 
     @Column(name = "year")
-    private short year;
-
-    @OneToOne
-    @JoinColumn(name = "movie_id")
-    private Rating rating;
+    private int year;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

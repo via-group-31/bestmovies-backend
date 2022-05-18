@@ -9,20 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/person")
 public class PersonController {
 
-    private final PersonService personService;
+    private  final PersonService personService;
 
-    public ResponseEntity<List<Person>> getPeopleByName(@RequestParam("personName") String personName) {
-        return ResponseEntity.ok().body(personService.getPersonsByName(personName));
-    }
-
-    @GetMapping("/pls")
+    @GetMapping
     public ResponseEntity<Person> getPersonById(@RequestParam("personId") long personId){
         return ResponseEntity.ok().body(personService.getPersonById(personId));
     }
