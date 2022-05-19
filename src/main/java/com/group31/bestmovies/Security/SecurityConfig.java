@@ -53,9 +53,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("/**").allowedOrigins("*");
-    }
 }
