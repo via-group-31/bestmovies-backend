@@ -1,21 +1,21 @@
 package com.group31.bestmovies.Security;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-public class CorsConfig {
-    @Bean
-    public WebMvcConfigurer getCorsConfiguration()
-    {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000")
-                        .allowedMethods("POST", "GET", "DELETE", "PUT")
-                        .allowCredentials(true);
-            }
-        };
+@Configuration
+public class CorsConfig extends WebMvcAutoConfiguration implements WebMvcConfigurer{
+    
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins(CorsConfiguration.ALL)
+                .allowedMethods(CorsConfiguration.ALL)
+                .allowedHeaders(CorsConfiguration.ALL)
+                .exposedHeaders("Location")
+                .allowCredentials(true);
     }
 }
