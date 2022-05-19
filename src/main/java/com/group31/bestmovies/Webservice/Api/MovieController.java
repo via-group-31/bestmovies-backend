@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin
 public class MovieController {
 
     private final MovieService movieService;
@@ -21,6 +20,7 @@ public class MovieController {
         return ResponseEntity.ok().body(movieService.getMovieById(movieId));
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/movies")
     public ResponseEntity<List<Movie>> getMovies() {
         return ResponseEntity.ok().body(movieService.getMovies());
