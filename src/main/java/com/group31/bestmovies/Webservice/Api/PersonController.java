@@ -4,23 +4,24 @@ import com.group31.bestmovies.Model.Person;
 import com.group31.bestmovies.Webservice.Service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/person")
+@RequestMapping("/api")
 public class PersonController {
 
-    private  final PersonService personService;
+    private final PersonService personService;
 
-    @GetMapping
-    public ResponseEntity<Person> getPersonById(@RequestParam("personId") long personId){
+    @GetMapping("/person")
+    public ResponseEntity<Person> getPersonById(@RequestParam("personId") long personId) {
         return ResponseEntity.ok().body(personService.getPersonById(personId));
     }
-    /* TODO:
-        GET people by part of the people name
-    * */
+
+    @GetMapping("/person/{personName}")
+    public ResponseEntity<List<Person>> getPersonByName(@PathVariable String personName) {
+        return ResponseEntity.ok().body(personService.getPersonByName(personName));
+    }
 }

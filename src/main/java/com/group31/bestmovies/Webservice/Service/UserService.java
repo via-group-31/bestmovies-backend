@@ -1,5 +1,6 @@
 package com.group31.bestmovies.Webservice.Service;
 
+import com.group31.bestmovies.Model.Movie;
 import com.group31.bestmovies.Model.UserModel;
 import com.group31.bestmovies.Model.UserRole;
 import com.group31.bestmovies.Repository.IUserRepository;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +28,23 @@ public class UserService implements UserDetailsService {
     private final IUserRepository userRepository;
     private final IUserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public void addMoviesToFavorites(List<Movie> moviesToAdd, long userId) {
+        UserModel user = userRepository.getById(userId);
+        user.getMovieList().addAll(moviesToAdd);
+        userRepository.save(user);
+    }
+
+    public void removeMoviesFromFavorites(List<Movie> moviesToAdd, long userId) {
+        UserModel user = userRepository.getById(userId);
+        user.getMovieList().removeAll(moviesToAdd);
+        userRepository.save(user);
+    }
+
+    public List<Movie> getFavoritesByUserId(long userId) {
+        UserModel user = userRepository.getById(userId);
+        return (List<Movie>) user.getMovieList();
+    }
 
     public void registerUser(UserModel userModel) {
         userModel.setUserPassword(passwordEncoder.encode(userModel.getUserPassword()));

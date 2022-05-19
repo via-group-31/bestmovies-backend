@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,4 +20,5 @@ public class RatingService {
     public Rating getRatingById(long ratingId){
         return ratingRepository.getById(ratingId);
     }
+    public List<Rating> getRatingsByMovieId(long movieID){return ratingRepository.getRatingsByMovieId(movieID);}
 }

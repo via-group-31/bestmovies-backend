@@ -4,10 +4,9 @@ import com.group31.bestmovies.Model.Rating;
 import com.group31.bestmovies.Webservice.Service.RatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,11 +16,17 @@ public class RatingController {
     private final RatingService ratingService;
 
     @GetMapping
-    public ResponseEntity<Rating> getRatingById(@RequestParam("ratingId") long ratingId){
+    public ResponseEntity<Rating> getRatingById(@RequestParam("ratingId") long ratingId) {
         return ResponseEntity.ok().body(ratingService.getRatingById(ratingId));
     }
 
+    @GetMapping("/{movieId}")
+    public ResponseEntity<List<Rating>> getRatingsByMovieId(@PathVariable("movieId") long movieID) {
+        return ResponseEntity.ok().body(ratingService.getRatingsByMovieId(movieID));
+    }
+
     /* TODO:
+        NEED TO TEST THIS
         GET ratings by movieId
     * */
 }
