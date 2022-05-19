@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-@CrossOrigin(origins = {"http://localhost:3000/", "https://sep6bestmovies.azurewebsites.net/", "http://localhost/"})
+@CrossOrigin
 public class MovieController {
 
     private final MovieService movieService;
