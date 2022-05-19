@@ -42,15 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/auth/login"); //setting login path
 
-        http.cors().and();
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/api/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/auth/login/**", "/api/auth/register/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/review/**", "/api/rating/**", "/api/movie", "/api/movie/**").permitAll();
-        http.authorizeRequests().anyRequest().authenticated();
-        http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.cors().and().csrf().disable()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+        .authorizeRequests().antMatchers("/api/**").permitAll().and()
+        .authorizeRequests().antMatchers("/api/auth/login/**", "/api/auth/register/**").permitAll().and()
+        .authorizeRequests().antMatchers("/api/review/**", "/api/rating/**", "/api/movie", "/api/movie/**").permitAll().and()
+        .authorizeRequests().anyRequest().authenticated().and()
+        .addFilter(customAuthenticationFilter)
+        .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
