@@ -13,11 +13,33 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/review")
-@CrossOrigin
 public class ReviewController {
 
     private final ReviewService reviewService;
 
+    @CrossOrigin(
+        // Access-Control-Allow-Origin
+        origins = { "*" },
+        
+        // Alternative to origins that supports more flexible originpatterns. 
+        // Please, see CorsConfiguration.setAllowedOriginPatterns(List)for details.
+        // originPatterns = { "" },   
+        
+        // Access-Control-Allow-Credentials
+        allowCredentials = "false",
+        
+        // Access-Control-Allow-Headers
+        allowedHeaders = { "*" },
+        
+        // Access-Control-Expose-Headers
+        exposedHeaders = { "*" },
+        
+        // Access-Control-Max-Age
+        maxAge = 60 * 30,
+        
+        // Access-Control-Allow-Methods
+        methods = {RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST, RequestMethod.PUT}
+    )
     @GetMapping
     public ResponseEntity<Review> getReviewById(@RequestParam("reviewId") long reviewId) {
         return ResponseEntity.ok().body(reviewService.getReviewById(reviewId));
