@@ -4,6 +4,8 @@ import com.group31.bestmovies.Model.Movie;
 import com.group31.bestmovies.Repository.IMovieRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,6 +19,7 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
+@EnableCaching
 public class MovieService {
 
     private final IMovieRepository movieRepository;
@@ -35,7 +38,9 @@ public class MovieService {
         return movie;
     }
 
+    @Cacheable("movies")
     public List<Movie> getMovies() {
+        System.out.println("Getting from database");
         List<Movie> movies = movieRepository.getMovies();
 
         for(Movie movie: movies){
