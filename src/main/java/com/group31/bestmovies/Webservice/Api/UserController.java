@@ -11,38 +11,38 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<Void> registerUser(@RequestBody UserModel userModel) {
         userService.registerUser(userModel);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/favorites")
-    public ResponseEntity addMoviesToFavorite(@RequestParam("movieId") long movieId, @RequestHeader("Authorization") String token) {
+    @PostMapping("/user/favorites")
+    public ResponseEntity addMoviesToFavorite(@RequestHeader("Authorization") String token, @RequestParam("movieId") Long movieId) {
         UserModel user = userService.getUserFromHeader(token);
         if(user == null)
             return ResponseEntity.badRequest().build();
 
-        userService.addMoviesToFavorites(movieId, user.getUserId());
+        userService.addMoviesToFavorites(user.getUserId(), movieId);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/favorites")
-    public ResponseEntity deleteMoviesFromFavorites(@RequestParam("movieId") long movieId, @RequestHeader("Authorization") String token) {
+    @DeleteMapping("/user/favorites")
+    public ResponseEntity deleteMoviesFromFavorites(@RequestHeader("Authorization") String token, @RequestParam("movieId") Long movieId) {
         UserModel user = userService.getUserFromHeader(token);
         if(user == null)
             return ResponseEntity.badRequest().build();
 
-        userService.removeMoviesFromFavorites(movieId, user.getUserId());
+        userService.removeMoviesFromFavorites(user.getUserId(), movieId);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/favorites")
+    @GetMapping("/user/favorites")
     public ResponseEntity<List<Movie>> getFavoritesByUserId(@RequestHeader("Authorization") String token) {
         UserModel user = userService.getUserFromHeader(token);
         if(user == null)

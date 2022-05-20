@@ -30,11 +30,11 @@ public class UserService implements UserDetailsService {
     private final IUserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void addMoviesToFavorites(long movieId, long userId) {
+    public void addMoviesToFavorites(long userId, long movieId) {
         userRepository.addMovieToFavorites(userId, movieId);
     }
 
-    public void removeMoviesFromFavorites(long movieId, long userId) {
+    public void removeMoviesFromFavorites(long userId, long movieId) {
         userRepository.deleteMovieFromFavorites(userId, movieId);
     }
 

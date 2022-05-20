@@ -45,13 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         /* USER ROLES */
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/auth/favorites")
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/user/favorites")
                 .hasAuthority("role_user");
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/auth/favorites", "/api/review")
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/user/favorites", "/api/review")
                 .hasAuthority("role_user");
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/auth/favorites")
-                .hasAuthority("role_user");
-        http.authorizeRequests().antMatchers(HttpMethod.PUT)
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/user/favorites")
                 .hasAuthority("role_user");
 
         http.authorizeRequests().anyRequest().authenticated();
