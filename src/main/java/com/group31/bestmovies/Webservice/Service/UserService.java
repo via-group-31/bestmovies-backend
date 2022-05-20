@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 
@@ -56,6 +57,21 @@ public class UserService implements UserDetailsService {
         UserModel user = userRepository.findByUserEmail(userEmail);
         UserRole userRole = userRoleRepository.findByRoleName(roleName);
         user.getUserRoles().add(userRole);
+    }
+
+    public UserModel getUser(String userEmail) {
+        log.info("Getting user {} from database", userEmail);
+        return userRepository.findByUserEmail(userEmail);
+    }
+
+    public UserModel getUserFromHeader(String header) {
+        String[] payload = header.split("\\.");
+        String payloadDecode = new String (Base64.getUrlDecoder().decode(payload[1]));
+        String[] emailArray = payloadDecode.split("\"");
+        String email = emailArray[3];
+        UserModel user = getUser(email);
+        log.info("Getting {} user information from database", email);
+        return user;
     }
 
     @Override

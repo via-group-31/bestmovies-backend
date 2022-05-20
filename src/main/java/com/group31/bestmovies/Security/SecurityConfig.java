@@ -39,9 +39,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/api/**").permitAll();
+        /* ALL ROLES */
         http.authorizeRequests().antMatchers("/api/auth/login/**", "/api/auth/register/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/review/**", "/api/rating/**", "/api/movie", "/api/movie/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/review/**", "/api/rating/**", "/api/person/**", "/api/movie", "/api/movies/**")
+                .permitAll();
+
+        /* USER ROLES */
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/auth/favorites")
+                .hasAuthority("role_user");
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/auth/favorites", "/api/review")
+                .hasAuthority("role_user");
+        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/auth/favorites")
+                .hasAuthority("role_user");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT)
+                .hasAuthority("role_user");
+
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -22,20 +22,32 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("favorites")
-    public ResponseEntity addMoviesToFavorite(@RequestBody List<Movie> moviesToAdd, @RequestParam("userId") long userId) {
-        userService.addMoviesToFavorites(moviesToAdd, userId);
+    @PostMapping("/favorites")
+    public ResponseEntity addMoviesToFavorite(@RequestBody List<Movie> moviesToAdd, @RequestHeader("Authorization") String token) {
+        UserModel user = userService.getUserFromHeader(token);
+        if(user == null)
+            return ResponseEntity.badRequest().build();
+
+        userService.addMoviesToFavorites(moviesToAdd, user.getUserId());
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("favorites")
-    public ResponseEntity deleteMoviesFromFavorites(@RequestBody List<Movie> moviesToRemove, @RequestParam("userId") long userId) {
-        userService.removeMoviesFromFavorites(moviesToRemove, userId);
+    @DeleteMapping("/favorites")
+    public ResponseEntity deleteMoviesFromFavorites(@RequestBody List<Movie> moviesToRemove, @RequestHeader("Authorization") String token) {
+        UserModel user = userService.getUserFromHeader(token);
+        if(user == null)
+            return ResponseEntity.badRequest().build();
+
+        userService.removeMoviesFromFavorites(moviesToRemove, user.getUserId());
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("favorites")
-    public ResponseEntity<List<Movie>> getFavoritesByUserId(@RequestParam("userId") long userId) {
-        return ResponseEntity.ok().body(userService.getFavoritesByUserId(userId));
+    @GetMapping("/favorites")
+    public ResponseEntity<List<Movie>> getFavoritesByUserId(@RequestHeader("Authorization") String token) {
+        UserModel user = userService.getUserFromHeader(token);
+        if(user == null)
+            return ResponseEntity.badRequest().build();
+
+        return ResponseEntity.ok().body(userService.getFavoritesByUserId(user.getUserId()));
     }
 }
