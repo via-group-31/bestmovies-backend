@@ -28,7 +28,11 @@ public class UserModel {
     private String userPassword;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "movielist")
+    @JoinTable(
+            name = "movielist",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<Movie> movieList;
 
     @ManyToMany(fetch = FetchType.EAGER)

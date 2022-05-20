@@ -30,16 +30,12 @@ public class UserService implements UserDetailsService {
     private final IUserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void addMoviesToFavorites(List<Movie> moviesToAdd, long userId) {
-        UserModel user = userRepository.getById(userId);
-        user.getMovieList().addAll(moviesToAdd);
-        userRepository.save(user);
+    public void addMoviesToFavorites(long movieId, long userId) {
+        userRepository.addMovieToFavorites(userId, movieId);
     }
 
-    public void removeMoviesFromFavorites(List<Movie> moviesToAdd, long userId) {
-        UserModel user = userRepository.getById(userId);
-        user.getMovieList().removeAll(moviesToAdd);
-        userRepository.save(user);
+    public void removeMoviesFromFavorites(long movieId, long userId) {
+        userRepository.deleteMovieFromFavorites(userId, movieId);
     }
 
     public List<Movie> getFavoritesByUserId(long userId) {
