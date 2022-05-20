@@ -4,6 +4,9 @@ import com.group31.bestmovies.Model.Movie;
 import com.group31.bestmovies.Repository.IMovieRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.http.HttpMethod;
@@ -32,6 +35,7 @@ public class MovieService {
         return movies;
     }
 
+    @Cacheable("movies")
     public Movie getMovieById(long movieId) {
         Movie movie = movieRepository.getById(movieId);
         movie.setMoviePoster(getMoviePosters(movie));
@@ -40,7 +44,6 @@ public class MovieService {
 
     @Cacheable("movies")
     public List<Movie> getMovies() {
-        System.out.println("Getting from database");
         List<Movie> movies = movieRepository.getMovies();
 
         for(Movie movie: movies){
@@ -50,6 +53,7 @@ public class MovieService {
         return movies;
     }
 
+    @Cacheable("movies")
     private String getMoviePosters(Movie movie){
         RestTemplate restTemplate = new RestTemplate();
 
