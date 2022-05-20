@@ -37,12 +37,12 @@ public class ReviewController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("movie/{movieId}")
+    @GetMapping("/movie/{movieId}")
     public ResponseEntity<List<Review>> getByMovieId(@PathVariable long movieId) {
         return ResponseEntity.ok().body(reviewService.getReviewByMovieId(movieId));
     }
 
-    @GetMapping("user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<Review>> getByUserId(@PathVariable long userId) {
         return ResponseEntity.ok().body(reviewService.getReviewByUserId(userId));
     }
