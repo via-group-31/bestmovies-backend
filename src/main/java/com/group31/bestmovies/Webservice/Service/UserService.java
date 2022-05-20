@@ -44,7 +44,7 @@ public class UserService implements UserDetailsService {
 
     public List<Movie> getFavoritesByUserId(long userId) {
         UserModel user = userRepository.getById(userId);
-        return (List<Movie>) user.getMovieList();
+        return user.getMovieList();
     }
 
     public void registerUser(UserModel userModel) {

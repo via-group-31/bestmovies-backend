@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Entity
@@ -27,7 +28,8 @@ public class UserModel {
     private String userPassword;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<Movie> movieList;
+    @JoinTable(name = "movielist")
+    private List<Movie> movieList;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<UserRole> userRoles = new ArrayList<>();
