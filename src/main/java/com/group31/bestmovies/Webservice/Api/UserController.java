@@ -23,22 +23,22 @@ public class UserController {
     }
 
     @PostMapping("/user/favorites")
-    public ResponseEntity addMoviesToFavorite(@RequestHeader("Authorization") String token) {
+    public ResponseEntity addMoviesToFavorite(@RequestHeader("Authorization") String token, @RequestParam("movieId") Long movieId) {
         UserModel user = userService.getUserFromHeader(token);
         if(user == null)
             return ResponseEntity.badRequest().build();
 
-        userService.addMoviesToFavorites(499549, user.getUserId());
+        userService.addMoviesToFavorites(user.getUserId(), movieId);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/user/favorites")
-    public ResponseEntity deleteMoviesFromFavorites(@RequestHeader("Authorization") String token) {
+    public ResponseEntity deleteMoviesFromFavorites(@RequestHeader("Authorization") String token, @RequestParam("movieId") Long movieId) {
         UserModel user = userService.getUserFromHeader(token);
         if(user == null)
             return ResponseEntity.badRequest().build();
 
-        userService.removeMoviesFromFavorites(499549, user.getUserId());
+        userService.removeMoviesFromFavorites(user.getUserId(), movieId);
         return ResponseEntity.ok().build();
     }
 
