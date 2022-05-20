@@ -11,18 +11,18 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/auth/register")
     public ResponseEntity<Void> registerUser(@RequestBody UserModel userModel) {
         userService.registerUser(userModel);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/favorites")
+    @PostMapping("/user/favorites")
     public ResponseEntity addMoviesToFavorite(@RequestHeader("Authorization") String token) {
         UserModel user = userService.getUserFromHeader(token);
         if(user == null)
@@ -32,7 +32,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/favorites")
+    @DeleteMapping("/user/favorites")
     public ResponseEntity deleteMoviesFromFavorites(@RequestHeader("Authorization") String token) {
         UserModel user = userService.getUserFromHeader(token);
         if(user == null)
@@ -42,7 +42,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/favorites")
+    @GetMapping("/user/favorites")
     public ResponseEntity<List<Movie>> getFavoritesByUserId(@RequestHeader("Authorization") String token) {
         UserModel user = userService.getUserFromHeader(token);
         if(user == null)
