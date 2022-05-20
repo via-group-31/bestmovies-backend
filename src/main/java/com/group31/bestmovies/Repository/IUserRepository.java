@@ -12,7 +12,7 @@ import java.util.List;
 public interface IUserRepository extends JpaRepository<UserModel, Long> {
     UserModel findByUserEmail(String userEmail);
 
-    @Query(value = "SELECT  * FROM Movies.dbo.movielist WHERE user_id = :userId", nativeQuery = true)
+    @Query(value = "SELECT * FROM Movies.dbo.movies WHERE id IN (SELECT movie_id FROM Movies.dbo.movielist WHERE user_id = :userId)", nativeQuery = true)
     List<Movie> getAllFavoriteMoviesByUserId(long userId);
 
     @Modifying
