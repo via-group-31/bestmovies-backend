@@ -2,6 +2,7 @@ package com.group31.bestmovies.Webservice.Api;
 
 import com.group31.bestmovies.Model.Movie;
 import com.group31.bestmovies.Model.UserModel;
+import com.group31.bestmovies.Webservice.Service.MovieService;
 import com.group31.bestmovies.Webservice.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final MovieService movieService;
 
     @PostMapping("/auth/register")
     public ResponseEntity<Void> registerUser(@RequestBody UserModel userModel) {
@@ -25,7 +27,7 @@ public class UserController {
     @PostMapping("/user/favorites")
     public ResponseEntity addMoviesToFavorite(@RequestHeader("Authorization") String token, @RequestParam("movieId") Long movieId) {
         UserModel user = userService.getUserFromHeader(token);
-        if(user == null)
+        if (user == null)
             return ResponseEntity.badRequest().build();
 
         userService.addMoviesToFavorites(user.getUserId(), movieId);
@@ -35,7 +37,7 @@ public class UserController {
     @DeleteMapping("/user/favorites")
     public ResponseEntity deleteMoviesFromFavorites(@RequestHeader("Authorization") String token, @RequestParam("movieId") Long movieId) {
         UserModel user = userService.getUserFromHeader(token);
-        if(user == null)
+        if (user == null)
             return ResponseEntity.badRequest().build();
 
         userService.removeMoviesFromFavorites(user.getUserId(), movieId);
@@ -45,9 +47,24 @@ public class UserController {
     @GetMapping("/user/favorites")
     public ResponseEntity<List<Movie>> getFavoritesByUserId(@RequestHeader("Authorization") String token) {
         UserModel user = userService.getUserFromHeader(token);
-        if(user == null)
+        if (user == null)
             return ResponseEntity.badRequest().build();
 
         return ResponseEntity.ok().body(userService.getFavoritesByUserId(user.getUserId()));
+    }
+
+    @GetMapping("/user/favoritesList")
+    public ResponseEntity<Void> isInFavorites(@RequestHeader("Authorization") String token, @RequestParam long movieId) {
+        UserModel user = userService.getUserFromHeader(token);
+        Movie movie = movieService.getMovieById(movieId);
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (movie == null || !user.getMovieList().contains(movie)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().build();
     }
 }
