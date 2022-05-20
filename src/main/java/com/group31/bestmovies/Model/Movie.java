@@ -44,4 +44,7 @@ public class Movie {
     )
     @JsonIgnoreProperties({"actorOf", "directorOf", "hibernateLazyInitializer"})
     private List<Person> stars;
+
+    @Transient
+    private String moviePoster;
 }
