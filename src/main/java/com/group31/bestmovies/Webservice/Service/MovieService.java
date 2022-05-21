@@ -29,7 +29,7 @@ public class MovieService {
 
     public List<Movie> getMoviesWithSimilarName(String name) {
         List<Movie> movies = movieRepository.getMoviesWithSimilarName(name);
-        for(Movie movie: movies){
+        for (Movie movie : movies) {
             movie.setMoviePoster(getMoviePosters(movie));
         }
         return movies;
@@ -46,15 +46,19 @@ public class MovieService {
     public List<Movie> getMovies() {
         List<Movie> movies = movieRepository.getMovies();
 
-        for(Movie movie: movies){
+        for (Movie movie : movies) {
             movie.setMoviePoster(getMoviePosters(movie));
         }
 
         return movies;
     }
 
+    public List<Movie> getFavoritesByUserId(long userId) {
+        return movieRepository.getAllFavoriteMoviesByUserId(userId);
+    }
+
     @Cacheable("movies")
-    private String getMoviePosters(Movie movie){
+    private String getMoviePosters(Movie movie) {
         RestTemplate restTemplate = new RestTemplate();
 
         String movieId = String.format("%07d", movie.getMovieId());
