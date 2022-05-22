@@ -29,7 +29,6 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
-    @Cacheable("ratings")
     public List<Review> getReviewByMovieId(long movieId) {
         return reviewRepository.getReviewByMovieId(movieId);
     }

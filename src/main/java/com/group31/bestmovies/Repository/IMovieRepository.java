@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface IMovieRepository extends JpaRepository<Movie, Long> {
-    @Query(value = "SELECT TOP 8 * FROM Movies.dbo.movies", nativeQuery = true)
+    @Query(value = "SELECT TOP 8 * FROM Movies.dbo.movies where year=YEAR(GETDATE())", nativeQuery = true)
     List<Movie> getMovies();
 
     @Query(value = "SELECT TOP 8 * FROM Movies.dbo.movies where title LIKE %:movieName%", nativeQuery = true)
