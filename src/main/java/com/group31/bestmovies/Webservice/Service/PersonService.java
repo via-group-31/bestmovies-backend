@@ -38,7 +38,7 @@ public class PersonService {
         String uri = "https://imdb-api.com/en/API/Name/k_zo49om6d/nm" + personId;
         String imdb = restTemplate.getForObject(uri, String.class);
 
-        final String regex = ",\"image\":\"(.*?)\"";
+        final String regex = ",\\\"image\\\":\\\"(.*?)\\\",\"summary\"";
         final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
         final Matcher matcher = pattern.matcher(imdb);
 
