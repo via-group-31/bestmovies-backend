@@ -54,7 +54,11 @@ public class MovieService {
     }
 
     public List<Movie> getFavoritesByUserId(long userId) {
-        return movieRepository.getAllFavoriteMoviesByUserId(userId);
+        List<Movie> movieList = movieRepository.getAllFavoriteMoviesByUserId(userId);
+        for(Movie movie: movieList){
+            movie.setMoviePoster(getMoviePosters(movie));
+        }
+        return movieList;
     }
 
     @Cacheable("movies")
