@@ -34,4 +34,7 @@ public class Person {
     @ManyToMany(mappedBy = "stars", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"stars", "directors", "hibernateLazyInitializer"})
     private List<Movie> actorOf;
+
+    @Transient
+    private String personImage;
 }
