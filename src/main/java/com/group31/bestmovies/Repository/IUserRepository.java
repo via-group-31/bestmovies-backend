@@ -12,9 +12,6 @@ import java.util.List;
 public interface IUserRepository extends JpaRepository<UserModel, Long> {
     UserModel findByUserEmail(String userEmail);
 
-    @Query(value = "SELECT * FROM Movies.dbo.movies WHERE id IN (SELECT movie_id FROM Movies.dbo.movielist WHERE user_id = :userId)", nativeQuery = true)
-    List<Movie> getAllFavoriteMoviesByUserId(long userId);
-
     @Modifying
     @Query(value = "INSERT INTO Movies.dbo.movielist (user_id, movie_id) values (:userId, :movieId)", nativeQuery = true)
     void addMovieToFavorites(@Param("userId") long userId, @Param("movieId") long movieId);

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -47,4 +48,17 @@ public class Movie {
 
     @Transient
     private String moviePoster;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return movieId == movie.movieId && year == movie.year && Objects.equals(movieName, movie.movieName) && Objects.equals(directors, movie.directors) && Objects.equals(stars, movie.stars) && Objects.equals(moviePoster, movie.moviePoster);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movieId, movieName, year, directors, stars, moviePoster);
+    }
 }

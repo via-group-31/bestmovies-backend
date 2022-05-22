@@ -50,18 +50,17 @@ public class UserController {
         if (user == null)
             return ResponseEntity.badRequest().build();
 
-        return ResponseEntity.ok().body(userService.getFavoritesByUserId(user.getUserId()));
+        return ResponseEntity.ok().body(movieService.getFavoritesByUserId(user.getUserId()));
     }
 
     @GetMapping("/user/favoritesList")
     public ResponseEntity<Void> isInFavorites(@RequestHeader("Authorization") String token, @RequestParam long movieId) {
         UserModel user = userService.getUserFromHeader(token);
-        Movie movie = movieService.getMovieById(movieId);
         if (user == null) {
             return ResponseEntity.badRequest().build();
         }
 
-        if (movie == null || !user.getMovieList().contains(movie)) {
+        if (user.getMovieList().stream().noneMatch(m -> m.getMovieId() == movieId)) {
             return ResponseEntity.notFound().build();
         }
 

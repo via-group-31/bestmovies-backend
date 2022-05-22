@@ -38,10 +38,6 @@ public class UserService implements UserDetailsService {
         userRepository.deleteMovieFromFavorites(userId, movieId);
     }
 
-    public List<Movie> getFavoritesByUserId(long userId) {
-        return userRepository.getAllFavoriteMoviesByUserId(userId);
-    }
-
     public void registerUser(UserModel userModel) {
         userModel.setUserPassword(passwordEncoder.encode(userModel.getUserPassword()));
         userRepository.save(userModel);
