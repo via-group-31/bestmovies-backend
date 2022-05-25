@@ -32,7 +32,7 @@ public class BestmoviesBackendApplication {
 
     @Bean
     public Caffeine caffeineConfig() {
-        return Caffeine.newBuilder().expireAfterWrite(2, TimeUnit.MINUTES);
+        return Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES);
     }
 
     @Bean

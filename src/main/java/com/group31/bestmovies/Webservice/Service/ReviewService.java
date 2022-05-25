@@ -20,7 +20,6 @@ public class ReviewService {
 
     private final IReviewRepository reviewRepository;
 
-    @Cacheable("ratings")
     public Review getReviewById(long reviewId) {
         return reviewRepository.getById(reviewId);
     }
@@ -33,7 +32,6 @@ public class ReviewService {
         return reviewRepository.getReviewByMovieId(movieId);
     }
 
-    @Cacheable("ratings")
     public List<Review> getReviewByUserId(long userId) {
         return reviewRepository.getReviewByUserId(userId);
     }
